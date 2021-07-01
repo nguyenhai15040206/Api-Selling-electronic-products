@@ -27,9 +27,20 @@ namespace QuanLySanPhamDienTuAPI.Controllers
             var kh = db.KhachHang.Where(m => m.MaKhachHang == maKhachHang).SingleOrDefault();
             if (kh == null)
             {
-                NotFound();
+                return null;
             }
             return kh;
+        }
+
+        [HttpGet("getCustomer/{input}")]
+        public async  Task<IActionResult> Get(string input)
+        {
+            var kh = db.KhachHang.Where(m => m.SoDienThoai == input || m.TenDangNhap== input || m.Email==input).SingleOrDefault();
+            if(kh==null)
+            {
+                return NotFound();
+            }    
+            return new ObjectResult(kh);
         }
         [HttpGet("{tenDangNhap}/{matKhau}")]
         public async Task<IActionResult> Get(string tenDangNhap, string matKhau)

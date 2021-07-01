@@ -20,7 +20,7 @@
     "QuanLySanPhamDienTuAPI": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "Home/Introduct",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

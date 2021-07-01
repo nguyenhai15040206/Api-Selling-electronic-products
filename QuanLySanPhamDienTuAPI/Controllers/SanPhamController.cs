@@ -187,6 +187,13 @@ namespace QuanLySanPhamDienTuAPI.Controllers
             }
             return new ObjectResult(sp);
         }
+
+        // đếm số lượng sản phẩm
+        [HttpGet("SoLuong")]
+        public int countProducts()
+        {
+            return db.SanPham.Count();
+        }
     }
 
 }
