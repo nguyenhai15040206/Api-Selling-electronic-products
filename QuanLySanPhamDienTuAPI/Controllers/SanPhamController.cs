@@ -16,7 +16,6 @@ namespace QuanLySanPhamDienTuAPI.Controllers
 
         public List<NewSanPham> getSanPhamPaginationList(int page = 1, int limit = 10)
         {
-            //var listModel = new SanPhamPaginationList();
             var listModel = new List<NewSanPham>();
             var sp = (from c in db.DanhMuc
                       join b in db.SanPham on c.MaDanhMuc equals b.MaDanhMuc

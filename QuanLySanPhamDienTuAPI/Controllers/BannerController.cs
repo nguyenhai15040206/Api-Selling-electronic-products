@@ -13,18 +13,28 @@ namespace QuanLySanPhamDienTuAPI.Controllers
     public class BannerController : ControllerBase
     {
         QL_SanPhamContext db = new QL_SanPhamContext();
-
+        ConverImageToBase64 convertbase64 = new ConverImageToBase64();
         // load tất cả Banner
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var banner = db.Banner.ToList();
+            string a = ImagesUploadController._environment.WebRootPath + "\\Banner\\";
+            var banner = (from bn in db.Banner
+                          select new Banner
+                          {
+                              MaBanner= bn.MaBanner,
+                              FileBanner=  bn.FileBanner,
+                              KichHoat =  bn.KichHoat,
+                              GhiChu = bn.GhiChu
+                              
+                          }).ToList();
             if (banner == null)
             {
                 return NotFound();
             }
             return new ObjectResult(banner);
         }
+
 
     }
 }

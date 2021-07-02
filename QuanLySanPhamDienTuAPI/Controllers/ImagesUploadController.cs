@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using QuanLySanPhamDienTuAPI.Models;
+using System.Net;
+using Microsoft.AspNetCore.Hosting.Server;
 
 namespace QuanLySanPhamDienTuAPI.Controllers
 {
@@ -20,20 +23,19 @@ namespace QuanLySanPhamDienTuAPI.Controllers
             _environment = environment;
         }
 
+        QL_SanPhamContext db = new QL_SanPhamContext();
         public class FileUploadAPI
         {
             public IFormFile files { get; set; }
         }
 
+        
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get( )
         {
-            var banner = "hai Nguyen";
-            if (banner == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(banner);
+            var images = _environment.WebRootPath + "\\Banner\\" + "Hinh1.jpg";
+
+            return new ObjectResult(_environment.WebRootPath + "\\Upload\\" + images);
         }
 
         [HttpPost]
