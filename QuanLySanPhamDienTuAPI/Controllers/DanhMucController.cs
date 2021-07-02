@@ -16,7 +16,14 @@ namespace QuanLySanPhamDienTuAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var danhMuc = db.DanhMuc.ToList();
+            var danhMuc = (from dm in db.DanhMuc
+                           select new DanhMuc { 
+                                MaDanhMuc = dm.MaDanhMuc,
+                                TenDanhMuc = dm.TenDanhMuc,
+                                MaNhaSanXuat = dm.MaNhaSanXuat,
+                                GhiChu = dm.GhiChu,
+                                LogoTungDanhMucSp = SanPhamController.base_url+"DanhMuc/"+ dm.LogoTungDanhMucSp
+                           }).ToList();
             if (danhMuc.Count == 0)
             {
                 return NotFound();
@@ -27,7 +34,15 @@ namespace QuanLySanPhamDienTuAPI.Controllers
         [HttpGet("{ghiChu}")]
         public async Task<IActionResult> Get(string ghiChu)
         {
-            var danhMUc = db.DanhMuc.Where(m => m.GhiChu == ghiChu).ToList();
+            var danhMUc = (from dm in db.DanhMuc
+                           select new DanhMuc
+                           {
+                               MaDanhMuc = dm.MaDanhMuc,
+                               TenDanhMuc = dm.TenDanhMuc,
+                               MaNhaSanXuat = dm.MaNhaSanXuat,
+                               GhiChu = dm.GhiChu,
+                               LogoTungDanhMucSp = SanPhamController.base_url + "DanhMuc/" + dm.LogoTungDanhMucSp
+                           }).Where(m => m.GhiChu == ghiChu).ToList();
             if (danhMUc.Count == 0)
             {
                 return NotFound();
