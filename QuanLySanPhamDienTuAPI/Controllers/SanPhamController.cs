@@ -13,6 +13,7 @@ namespace QuanLySanPhamDienTuAPI.Controllers
     public class SanPhamController : ControllerBase
     {
         QL_SanPhamContext db = new QL_SanPhamContext();
+        public static string base_url = "http://192.168.1.3:5000/";
 
         public List<NewSanPham> getSanPhamPaginationList(int page = 1, int limit = 10)
         {
@@ -32,7 +33,7 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                           GiamGia = (double)b.GiamGia,
                           NgayCapNhat = (DateTime)b.NgayCapNhat,
                           XuatXu = b.XuatXu,
-                          HinhMinhHoa = b.HinhMinhHoa,
+                          HinhMinhHoa =  base_url+"Upload/" + b.HinhMinhHoa,
                           DsHinh = b.DsHinh,
                           TinhTrang = (bool)b.TinhTrang,
                           GhiChu = c.GhiChu
@@ -81,7 +82,7 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                                GiamGia = (double)b.GiamGia,
                                NgayCapNhat = (DateTime)b.NgayCapNhat,
                                XuatXu = b.XuatXu,
-                               HinhMinhHoa = b.HinhMinhHoa,
+                               HinhMinhHoa = base_url + "Upload/" + b.HinhMinhHoa,
                                DsHinh = b.DsHinh,
                                TinhTrang = (bool)b.TinhTrang,
                                GhiChu = c.GhiChu
@@ -113,7 +114,7 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                           GiamGia = (double)b.GiamGia,
                           NgayCapNhat = (DateTime)b.NgayCapNhat,
                           XuatXu = b.XuatXu,
-                          HinhMinhHoa = b.HinhMinhHoa,
+                          HinhMinhHoa = base_url + "Upload/" + b.HinhMinhHoa,
                           DsHinh = b.DsHinh,
                           TinhTrang = (bool)b.TinhTrang,
                           GhiChu = c.GhiChu
@@ -143,7 +144,7 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                           GiamGia = (double)b.GiamGia,
                           NgayCapNhat = (DateTime)b.NgayCapNhat,
                           XuatXu = b.XuatXu,
-                          HinhMinhHoa = b.HinhMinhHoa,
+                          HinhMinhHoa = base_url + "Upload/" + b.HinhMinhHoa,
                           DsHinh = b.DsHinh,
                           TinhTrang = (bool)b.TinhTrang,
                           GhiChu = c.GhiChu
@@ -175,7 +176,7 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                           GiamGia = (double)b.GiamGia,
                           NgayCapNhat = (DateTime)b.NgayCapNhat,
                           XuatXu = b.XuatXu,
-                          HinhMinhHoa = b.HinhMinhHoa,
+                          HinhMinhHoa = base_url + "Upload/" + b.HinhMinhHoa,
                           DsHinh = b.DsHinh,
                           TinhTrang = (bool)b.TinhTrang,
                           GhiChu = c.GhiChu

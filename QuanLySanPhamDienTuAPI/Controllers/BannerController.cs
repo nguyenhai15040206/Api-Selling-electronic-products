@@ -18,12 +18,11 @@ namespace QuanLySanPhamDienTuAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            string a = ImagesUploadController._environment.WebRootPath + "\\Banner\\";
             var banner = (from bn in db.Banner
                           select new Banner
                           {
                               MaBanner= bn.MaBanner,
-                              FileBanner=  bn.FileBanner,
+                              FileBanner= SanPhamController.base_url+ "Banner/"+ bn.FileBanner,
                               KichHoat =  bn.KichHoat,
                               GhiChu = bn.GhiChu
                               

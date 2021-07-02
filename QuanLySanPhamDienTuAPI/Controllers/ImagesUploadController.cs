@@ -33,9 +33,9 @@ namespace QuanLySanPhamDienTuAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get( )
         {
-            var images = _environment.WebRootPath + "\\Banner\\" + "Hinh1.jpg";
+            var images = "Xin chào!";
 
-            return new ObjectResult(_environment.WebRootPath + "\\Upload\\" + images);
+            return new ObjectResult(images);
         }
 
         [HttpPost]
@@ -54,6 +54,36 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                         objFile.files.CopyTo(fileStream);
                         fileStream.Flush();
                         return "\\Upload\\" + objFile.files.FileName;
+                    }
+                }
+                else
+                {
+                    return "failed";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message.ToString();
+            }
+        }
+
+        [HttpPost("Images/Banner/{ghichu}")]
+        public async Task<String> Post([FromForm] FileUploadAPI objFile,string ghichu =null)
+        {
+            try
+            {
+                if (objFile.files.Length > 0)
+                {
+                    if (!Directory.Exists(_environment.WebRootPath + "\\Banner\\"))
+                    {
+                        Directory.CreateDirectory(_environment.WebRootPath + "\\Banner\\");
+                    }
+                    using (FileStream fileStream = System.IO.File.Create(_environment.WebRootPath + "\\Banner\\" + objFile.files.FileName))
+                    {
+                        objFile.files.CopyTo(fileStream);
+                        fileStream.Flush();
+                        return "\\Banner\\" + objFile.files.FileName;
                     }
                 }
                 else
