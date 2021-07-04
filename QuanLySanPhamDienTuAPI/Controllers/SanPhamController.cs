@@ -37,9 +37,9 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                           DsHinh = b.DsHinh,
                           TinhTrang = (bool)b.TinhTrang,
                           GhiChu = c.GhiChu
-                      }).Skip((page - 1) * limit).Take(limit).ToList();
+                      }).Skip((page - 1) * limit).Take(limit).OrderByDescending(m=>m.GiamGia).ToList();
             listModel = sp;
-            int totalRecord = db.Banner.Count();
+            int totalRecord = db.SanPham.Count();
             var pagination = new Pagination
             {
                 count = totalRecord,
@@ -189,10 +189,35 @@ namespace QuanLySanPhamDienTuAPI.Controllers
         }
 
         // đếm số lượng sản phẩm
-        [HttpGet("SoLuong")]
-        public int countProducts()
+        [HttpGet("SoLuong/{ghiChu}")]
+        public int countProducts(string ghiChu)
         {
-            return db.SanPham.Count();
+            var sp = (from c in db.DanhMuc
+                      join b in db.SanPham on c.MaDanhMuc equals b.MaDanhMuc
+                      where c.GhiChu == ghiChu
+                      select new NewSanPham
+                      {
+                          MaSanPham = b.MaSanPham,
+                          TenSanPham = b.TenSanPham,
+                          SoLuong = (int)b.SoLuong,
+                          DonGia = (double)b.DonGia,
+                          DonGiaNhap = (double)b.DonGiaNhap,
+                          MoTa = b.MoTa,
+                          MoTaChiTiet = b.MoTaChiTiet,
+                          KhuyenMai = b.KhuyenMai,
+                          GiamGia = (double)b.GiamGia,
+                          NgayCapNhat = (DateTime)b.NgayCapNhat,
+                          XuatXu = b.XuatXu,
+                          HinhMinhHoa = base_url + "Upload/" + b.HinhMinhHoa,
+                          DsHinh = b.DsHinh,
+                          TinhTrang = (bool)b.TinhTrang,
+                          GhiChu = c.GhiChu
+                      }).Count();
+            if (sp == 0)
+            {
+                return 0;
+            }
+            return sp;
         }
     }
 
