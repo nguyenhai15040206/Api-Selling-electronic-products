@@ -31,10 +31,5 @@ namespace QuanLySanPhamDienTuAPI.AI
             double support = ((double)matchCount / (double)this.Count) * 100.0;
             return support;
         }
-
-        public override string ToString()
-        {
-            return string.Join("\r\n", (from itemset in this select itemset.ToString().EndsWith(",")).ToArray());
-        }
     }
 }

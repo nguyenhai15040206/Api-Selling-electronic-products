@@ -6,38 +6,23 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using QuanLySanPhamDienTuAPI.Models;
-using System.Net;
-using Microsoft.AspNetCore.Hosting.Server;
 
 namespace QuanLySanPhamDienTuAPI.Controllers
 {
     [Route("Home/Introduct/[controller]")]
     [ApiController]
-    public class ImagesUploadController : ControllerBase
+    public class UploadBannerController : ControllerBase
     {
-        public readonly IWebHostEnvironment _environment;
-
-        public ImagesUploadController(IWebHostEnvironment environment)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public UploadBannerController(IWebHostEnvironment webHostEnvironment)
         {
-            _environment = environment;
+            this._webHostEnvironment = webHostEnvironment;
         }
-
-
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var images = "Xin chào!";
-
-            return new ObjectResult(images);
-        }
-
-
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm] IFormFile file)
+        public async Task<IActionResult> Upload([FromForm] IFormFile file)
         {
-            var path = $"{this._environment.WebRootPath}\\Upload";
+            var path = $"{this._webHostEnvironment.WebRootPath}\\Banner";
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
             FileInfo fileInfo = new FileInfo(file.FileName);

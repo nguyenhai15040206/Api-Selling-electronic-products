@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using QuanLySanPhamDienTuAPI.Data;
 using QuanLySanPhamDienTuAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -32,10 +33,10 @@ namespace QuanLySanPhamDienTuAPI.Controllers
             return kh;
         }
 
-        [HttpGet("getCustomer/{input}")]
-        public async  Task<IActionResult> Get(string input)
+        [HttpGet("getCustomer/{tenDangNhap}")]
+        public async  Task<IActionResult> Get(string tenDangNhap)
         {
-            var kh = db.KhachHang.Where(m => m.SoDienThoai == input || m.TenDangNhap== input || m.Email==input).SingleOrDefault();
+            var kh = db.KhachHang.Where( m => m.TenDangNhap== tenDangNhap).SingleOrDefault();
             if(kh==null)
             {
                 return NotFound();
@@ -45,7 +46,7 @@ namespace QuanLySanPhamDienTuAPI.Controllers
         [HttpGet("{tenDangNhap}/{matKhau}")]
         public async Task<IActionResult> Get(string tenDangNhap, string matKhau)
         {
-            var login = db.KhachHang.Where(m => m.TenDangNhap == tenDangNhap.Trim() && m.MatKhau == matKhau.Trim()).SingleOrDefault();
+            var login = db.KhachHang.Where(m => m.TenDangNhap == tenDangNhap.Trim() && m.MatKhau == HashMD5.MD5Hash(matKhau.Trim())).SingleOrDefault();
             if (login == null)
             {
                 return NotFound();
@@ -66,9 +67,17 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                 }
                 else
                 {
-                    db.KhachHang.Add(khachHang);
+                    KhachHang kh = new KhachHang();
+                    kh.MaKhachHang = 0;
+                    kh.TenKhachHang = khachHang.TenKhachHang;
+                    kh.SoDienThoai = khachHang.SoDienThoai;
+                    kh.Email = khachHang.Email;
+                    kh.DiaChi = khachHang.DiaChi;
+                    kh.TenDangNhap = khachHang.TenDangNhap;
+                    kh.MatKhau = HashMD5.MD5Hash(khachHang.MatKhau);
+                    db.KhachHang.Add(kh);
                     db.SaveChanges();
-                    return new ObjectResult(khachHang); // status 200 => 
+                    return new ObjectResult(kh); // status 200 => 
                 }
             }
             catch (Exception ex)
@@ -101,7 +110,7 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                         kh.SoDienThoai = khachHang.SoDienThoai;
                         kh.Email = khachHang.Email;
                         kh.DiaChi = khachHang.DiaChi;
-                        kh.MatKhau = khachHang.MatKhau;
+                        kh.MatKhau = HashMD5.MD5Hash(khachHang.MatKhau);
                         await db.SaveChangesAsync();
                         return new ObjectResult(kh); // status 200 => OK
 

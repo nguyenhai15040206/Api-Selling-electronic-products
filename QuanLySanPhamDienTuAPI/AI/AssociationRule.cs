@@ -21,10 +21,5 @@ namespace QuanLySanPhamDienTuAPI.AI
             Confidence = 0.0;
         }
 
-        public override string ToString()
-        {
-            return (X + " =>" + Y + "(Supp: " + Math.Round(Support, 2)+ "%, conf: "+ Math.Round(Confidence,2)+"%)");
-        }
-
     }
 }

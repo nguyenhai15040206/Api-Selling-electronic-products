@@ -21,5 +21,10 @@ namespace QuanLySanPhamDienTuAPI.AI
                              select item);
             return (removed);
         }
+
+        public string toString()
+        {
+            return string.Join(",", this.ToArray());
+        }
     }
 }

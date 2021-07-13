@@ -44,7 +44,7 @@ namespace QuanLySanPhamDienTuAPI.AI
             return L;
         }
         
-        public List<AssociationRule> ResultDoApriori(ItemSetCollection db, ItemSetCollection L, double minConfidence)
+        public static List<AssociationRule> ResultDoApriori(ItemSetCollection db, ItemSetCollection L, double minConfidence)
         {
             List<AssociationRule> listRule = new List<AssociationRule>();
             foreach(ItemSet itemset in L)
