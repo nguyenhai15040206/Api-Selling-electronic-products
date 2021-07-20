@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿    using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLySanPhamDienTuAPI.Data;
@@ -110,7 +110,7 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                         kh.SoDienThoai = khachHang.SoDienThoai;
                         kh.Email = khachHang.Email;
                         kh.DiaChi = khachHang.DiaChi;
-                        kh.MatKhau = HashMD5.MD5Hash(khachHang.MatKhau);
+                        kh.MatKhau = khachHang.MatKhau;
                         await db.SaveChangesAsync();
                         return new ObjectResult(kh); // status 200 => OK
 

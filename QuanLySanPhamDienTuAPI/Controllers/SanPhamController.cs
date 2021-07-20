@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuanLySanPhamDienTuAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace QuanLySanPhamDienTuAPI.Controllers
@@ -14,7 +17,6 @@ namespace QuanLySanPhamDienTuAPI.Controllers
     {
         QL_SanPhamContext db = new QL_SanPhamContext();
         public static string base_url = "http://192.168.1.3:5000/";
-
         public List<NewSanPham> getSanPhamPaginationList(int page = 1, int limit = 10)
         {
             var listModel = new List<NewSanPham>();
@@ -33,10 +35,11 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                           GiamGia = (double)b.GiamGia,
                           NgayCapNhat = (DateTime)b.NgayCapNhat,
                           XuatXu = b.XuatXu,
-                          HinhMinhHoa =  base_url+"Upload/" + b.HinhMinhHoa,
+                          HinhMinhHoa = base_url + "/Upload/" + b.HinhMinhHoa,
                           DsHinh = b.DsHinh,
                           TinhTrang = (bool)b.TinhTrang,
-                          GhiChu = c.GhiChu
+                          GhiChu = c.GhiChu,
+                          TenDanhMuc = c.TenDanhMuc
                       }).Skip((page - 1) * limit).Take(limit).OrderByDescending(m=>m.GiamGia).ToList();
             listModel = sp;
             int totalRecord = db.SanPham.Count();
@@ -85,7 +88,8 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                                HinhMinhHoa = base_url + "Upload/" + b.HinhMinhHoa,
                                DsHinh = b.DsHinh,
                                TinhTrang = (bool)b.TinhTrang,
-                               GhiChu = c.GhiChu
+                               GhiChu = c.GhiChu,
+                               TenDanhMuc = c.TenDanhMuc
                            }).Where(m => m.MaSanPham == maSanPham).FirstOrDefault();
             if (SanPham == null)
             {
@@ -117,7 +121,8 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                           HinhMinhHoa = base_url + "Upload/" + b.HinhMinhHoa,
                           DsHinh = b.DsHinh,
                           TinhTrang = (bool)b.TinhTrang,
-                          GhiChu = c.GhiChu
+                          GhiChu = c.GhiChu,
+                          TenDanhMuc = c.TenDanhMuc
                       }).ToList();
             if (sp.Count == 0)
             {
@@ -147,7 +152,8 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                           HinhMinhHoa = base_url + "Upload/" + b.HinhMinhHoa,
                           DsHinh = b.DsHinh,
                           TinhTrang = (bool)b.TinhTrang,
-                          GhiChu = c.GhiChu
+                          GhiChu = c.GhiChu,
+                          TenDanhMuc = c.TenDanhMuc
                       }).ToList();
             if (sp.Count == 0)
             {
@@ -179,7 +185,8 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                           HinhMinhHoa = base_url + "Upload/" + b.HinhMinhHoa,
                           DsHinh = b.DsHinh,
                           TinhTrang = (bool)b.TinhTrang,
-                          GhiChu = c.GhiChu
+                          GhiChu = c.GhiChu,
+                          TenDanhMuc = c.TenDanhMuc
                       }).ToList();
             if (sp.Count == 0)
             {
@@ -211,7 +218,8 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                           HinhMinhHoa = base_url + "Upload/" + b.HinhMinhHoa,
                           DsHinh = b.DsHinh,
                           TinhTrang = (bool)b.TinhTrang,
-                          GhiChu = c.GhiChu
+                          GhiChu = c.GhiChu,
+                          TenDanhMuc = c.TenDanhMuc
                       }).Count();
             if (sp == 0)
             {

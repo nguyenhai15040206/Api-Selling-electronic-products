@@ -34,6 +34,5 @@ namespace QuanLySanPhamDienTuAPI.Controllers
             return new ObjectResult(banner);
         }
 
-
     }
 }

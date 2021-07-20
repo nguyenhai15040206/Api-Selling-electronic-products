@@ -47,7 +47,8 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                       HinhMinhHoa = SanPhamController.base_url + "Upload/" + b.HinhMinhHoa,
                       DsHinh = b.DsHinh,
                       TinhTrang = (bool)b.TinhTrang,
-                      GhiChu = c.GhiChu
+                      GhiChu = c.GhiChu,
+                      TenDanhMuc = c.TenDanhMuc
                   }).Skip((page - 1) * limit).Take(limit).ToList();
 
             listModel = sp;
@@ -64,5 +65,42 @@ namespace QuanLySanPhamDienTuAPI.Controllers
             //listModel.pagination = pagination;
             return listModel;
         }
+
+        [HttpGet("{input}")]
+        public async Task<IActionResult> GET( string input)
+        {
+            if(string.Compare("Điện thoại", input,true)==0)
+            {
+                input = "DienThoai";
+            }
+            var rs = (from c in db.DanhMuc
+                      join b in db.SanPham on c.MaDanhMuc equals b.MaDanhMuc
+                      where c.TenDanhMuc.Contains(input) || b.TenSanPham.Contains(input) || c.GhiChu == input
+                      select new NewSanPham
+                      {
+                          MaSanPham = b.MaSanPham,
+                          TenSanPham = b.TenSanPham,
+                          SoLuong = (int)b.SoLuong,
+                          DonGia = (double)b.DonGia,
+                          DonGiaNhap = (double)b.DonGiaNhap,
+                          MoTa = b.MoTa,
+                          MoTaChiTiet = b.MoTaChiTiet,
+                          KhuyenMai = b.KhuyenMai,
+                          GiamGia = (double)b.GiamGia,
+                          NgayCapNhat = (DateTime)b.NgayCapNhat,
+                          XuatXu = b.XuatXu,
+                          HinhMinhHoa = SanPhamController.base_url + "Upload/" + b.HinhMinhHoa,
+                          DsHinh = b.DsHinh,
+                          TinhTrang = (bool)b.TinhTrang,
+                          GhiChu = c.GhiChu,
+                          TenDanhMuc =c.TenDanhMuc
+                      }).ToList();
+            if (rs == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(rs);
+        }
+
     }
 }

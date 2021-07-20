@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace QuanLySanPhamDienTuAPI.AI
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AssociationRule
     {
         public ItemSet X { get; set; }
@@ -19,6 +22,11 @@ namespace QuanLySanPhamDienTuAPI.AI
             Y = new ItemSet();
             Support = 0.0;
             Confidence = 0.0;
+        }
+
+        public override string ToString()
+        {
+            return this.X + " - " + this.Y + " - " + this.Support + " - " + this.Confidence;
         }
 
     }

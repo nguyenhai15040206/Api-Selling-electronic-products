@@ -89,7 +89,8 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                               HinhMinhHoa = SanPhamController.base_url + "Upload/" + b.HinhMinhHoa,
                               DsHinh = b.DsHinh,
                               TinhTrang = (bool)b.TinhTrang,
-                              GhiChu = c.GhiChu
+                              GhiChu = c.GhiChu,
+                              TenDanhMuc = c.TenDanhMuc
                           }).Skip((page - 1) * limit).Take(limit).ToList();
             }
             if(donGia==0)
@@ -113,7 +114,8 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                               HinhMinhHoa = SanPhamController.base_url + "Upload/" + b.HinhMinhHoa,
                               DsHinh = b.DsHinh,
                               TinhTrang = (bool)b.TinhTrang,
-                              GhiChu = c.GhiChu
+                              GhiChu = c.GhiChu,
+                              TenDanhMuc = c.TenDanhMuc
                           }).Skip((page - 1) * limit).Take(limit).ToList();
             }
             listModel = sp;
