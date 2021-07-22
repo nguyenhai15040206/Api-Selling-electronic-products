@@ -112,7 +112,7 @@ namespace QuanLySanPhamDienTuAPI.Controllers
                                              GiamGia = (double)b.GiamGia,
                                              NgayCapNhat = (DateTime)b.NgayCapNhat,
                                              XuatXu = b.XuatXu,
-                                             //HinhMinhHoa = SanPhamController.base_url + "Upload/" + b.HinhMinhHoa,
+                                             HinhMinhHoa = SanPhamController.base_url + "Upload/" + b.HinhMinhHoa,
                                              DsHinh = b.DsHinh,
                                              TinhTrang = (bool)b.TinhTrang,
                                              GhiChu = c.GhiChu,
